@@ -1,0 +1,23 @@
+/* set default namespace to XUL */
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+/* Remove the empty space on the left of the first tab */
+#TabsToolbar .titlebar-spacer:first-child{
+	display: none !important;
+}
+
+/* Remove the close buttons from tabs */
+#tabbrowser-tabs .tabbrowser-tab .tab-close-button { 
+  display: none !important;
+}
+
+/* Remove the close button on the top left */
+.titlebar-buttonbox-container { 
+  display: none !important 
+}
+
+/* Make the tab-line red to go with the rest of the look */
+.tab-line{ background-color: #bb0000 !important; }
+
+/* Get rid of the bottom status bar */
+#statuspanel { display: none; }

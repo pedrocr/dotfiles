@@ -1,0 +1,123 @@
+{
+    "layer": "bottom", // Waybar at top layer
+    // "position": "bottom", // Waybar position (top|bottom|left|right)
+    "height": 40, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    // Choose the order of the modules
+    "modules-left": ["sway/workspaces", "sway/window"],
+    "modules-center": [],
+    "modules-right": ["cpu", "memory", "temperature", "pulseaudio", "backlight", "network", "battery", "tray", "clock"],
+    // Modules configuration
+    "sway/workspaces": {
+         "disable-scroll": true,
+         "all-outputs": true,
+         "format": "{icon} {name} ",
+         "format-icons": {
+             "urgent": "<span font=\"FontAwesome 5 Free Solid\"></span>",
+             "default": ""
+         }
+    },
+    "sway/mode": {
+        "tooltip": false,
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "sway/window": {
+        "tooltip": false,
+        "all-outputs": true
+    },
+    "tray": {
+        "tooltip": false,
+        "icon-size": 40,
+        "spacing": 10
+    },
+    "clock": {
+        "tooltip": false,
+        "format-alt": "{:%Y-%m-%d %H:%M:%S}",
+        "interval": 1,
+        "format": "{:%Y-%m-%d %H:%M}"
+    },
+    "cpu": {
+        "tooltip": false,
+        "format": "{usage}% <span font=\"FontAwesome 5 Free Solid\"></span>",
+        "tooltip": false
+    },
+    "memory": {
+        "tooltip": false,
+        "format": "{}% <span font=\"FontAwesome 5 Free Solid\"></span>"
+    },
+    "temperature": {
+        "tooltip": false,
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}°C {icon}",
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": ["<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>"]
+    },
+    "backlight": {
+        "tooltip": false,
+        // "device": "acpi_video1",
+        "format": "{percent}% {icon}",
+        "format-icons": ["<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>"]
+    },
+    "battery": {
+        "tooltip": false,
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% <span font=\"FontAwesome 5 Free Solid\"></span>",
+        "format-plugged": "{capacity}% <span font=\"FontAwesome 5 Free Solid\"></span>",
+        "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>"]
+    },
+    "battery#bat2": {
+        "tooltip": false,
+        "bat": "BAT2"
+    },
+    "network": {
+        "tooltip": false,
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "{essid} ({signalStrength}%) <span font=\"FontAwesome 5 Free Solid\"></span>",
+        "format-ethernet": "{ifname}: {ipaddr}/{cidr} <span font=\"FontAwesome 5 Free Solid\"></span>",
+        "format-linked": "{ifname} (No IP) <span font=\"FontAwesome 5 Free Solid\"></span>",
+        "format-disconnected": "Disconnected <span font=\"FontAwesome 5 Free Solid\">⚠</span>",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "on-click-right": "gnome-terminal -e nmtui-connect"
+    },
+    "pulseaudio": {
+        "tooltip": false,
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-muted": "<span font=\"FontAwesome 5 Free Solid\"></span> {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "<span font=\"FontAwesome 5 Free Solid\"></span>",
+        "format-icons": {
+            "headphones": "<span font=\"FontAwesome 5 Free Solid\"></span>",
+            "handsfree": "<span font=\"FontAwesome 5 Free Solid\"></span>",
+            "headset": "<span font=\"FontAwesome 5 Free Solid\"></span>",
+            "phone": "<span font=\"FontAwesome 5 Free Solid\"></span>",
+            "portable": "<span font=\"FontAwesome 5 Free Solid\"></span>",
+            "car": "<span font=\"FontAwesome 5 Free Solid\"></span>",
+            "default": ["<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>"]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/media": {
+        "tooltip": false,
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "<span font=\"FontAwesome 5 Free Solid\"></span>",
+            "default": "<span font=\"FontAwesome 5 Free Solid\">🎜</span>"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+    }
+}

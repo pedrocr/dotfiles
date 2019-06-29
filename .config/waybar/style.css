@@ -1,0 +1,99 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 18px; /* 13px */
+    min-height: 0;
+}
+
+window#waybar {
+    background: black; /*rgba(43, 48, 59, 0.5);*/
+    border-bottom: 0px solid #bb0000;  /* rgba(100, 114, 125, 0.5); */
+    color: #ffffff;
+    transition-property: background, background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button {
+    padding: 0 5px;
+    background: transparent;
+    color: #ffffff;
+    border-bottom: 3px solid transparent;
+    font-weight: bold;
+}
+
+#workspaces button.focused {
+    background: #bb0000;
+    color: white;
+    border-top: 3px solid #bb0000;
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
+}
+
+#mode {
+    background: #64727D;
+    border-bottom: 3px solid #ffffff;
+}
+
+#window {
+    font-weight: bold;
+    padding-left: 1rem;
+}
+
+#battery, #cpu, #memory, #temperature, #backlight, #network, #pulseaudio, #custom-media, #tray, #mode, #idle_inhibitor {
+    padding: 0 10px;
+    margin: 0;
+    color: #ccc;
+    border-left: 2px solid #ccc;
+    font-weight: bold;
+}
+
+#tray {
+  font-weight: normal;
+  padding-left: 20px;
+}
+
+#memory, #temperature {
+    border-left: 0;
+    padding-left: 0;
+}
+
+#temperature {
+    margin-right: 30px;
+    border-right: 2px solid #ccc;
+}
+
+#clock {
+    border-left: 0;
+    padding: 0 10px;
+    margin: 0;
+    font-weight: bold;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+#battery.critical:not(.charging), #network.disconnected {
+    background: #bb0000;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+label:focus {
+    background-color: #000000;
+}

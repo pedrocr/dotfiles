@@ -1,0 +1,164 @@
+# pedrocr's config for sway
+
+  set $mod Mod4
+  set $term gnome-terminal
+  set $lock swaylock -f -c 112233 -i ~/LockImage.png
+
+  #set $menu dmenu_path | dmenu -fn "Monospace Regular-21\" -nb "#000" | xargs swaymsg exec --
+  set $menu dmenu_path | rofi -width 100 -location 1 -lines 10 -bw 2 -yoffset -2 -show-icons -font "Monospace Regular 20" -modi combi -show combi -combi-modi drun,run
+
+### Output configuration
+# output * bg /usr/local/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# output * bg #000000 solid_color
+# output eDP-1 scale 1.3
+
+### Idle configuration
+
+  exec swayidle -w \
+    before-sleep '$lock' \
+    timeout 5 'if pgrep --uid $(whoami) swaylock; then swaymsg "output * dpms off"; fi'\
+      resume 'swaymsg "output * dpms on"'\
+
+### Input configuration
+
+  input type:pointer {
+    natural_scroll enabled
+  }
+
+  input type:touchpad {
+    events disabled
+  }
+
+  input * xkb_layout "pt"
+
+  seat * hide_cursor 3000
+
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+# Reload the configuration file
+  bindsym $mod+Shift+c reload
+
+# Exit sway (logs you out of your Wayland session)
+  bindsym $mod+Shift+e exec swaynag -t warning -m 'Do you really want to exit?' -b 'Yes, terminate everything' 'swaymsg exit'
+
+# Start a terminal
+  bindsym $mod+Return exec $term
+
+# Kill focused window
+  bindsym $mod+q kill
+
+# Start your launcher
+  bindsym $mod+d exec $menu
+
+# Drag floating windows by holding down $mod and left mouse button.
+# Resize them with right mouse button + $mod.
+# Despite the name, also works for non-floating windows.
+# Change normal to inverse to use left mouse button for resizing and right
+# mouse button for dragging.
+  floating_modifier $mod normal
+
+# Move your focus around
+  bindsym $mod+Left focus left
+  bindsym $mod+Down focus down
+  bindsym $mod+Up focus up
+  bindsym $mod+Right focus right
+
+# Move the focused window with the same, but add Shift
+  bindsym $mod+Shift+Left move left
+  bindsym $mod+Shift+Down move down
+  bindsym $mod+Shift+Up move up
+  bindsym $mod+Shift+Right move right
+
+# Move focused container to workspace
+  bindsym $mod+1 move container to workspace 1
+  bindsym $mod+2 move container to workspace 2
+  bindsym $mod+3 move container to workspace 3
+  bindsym $mod+4 move container to workspace 4
+  bindsym $mod+5 move container to workspace 5
+  bindsym $mod+6 move container to workspace 6
+  bindsym $mod+7 move container to workspace 7
+  bindsym $mod+8 move container to workspace 8
+  bindsym $mod+9 move container to workspace 9
+  bindsym $mod+0 move container to workspace 10
+
+# You can "split" the current object of your focus with
+# $mod+b or $mod+v, for horizontal and vertical splits
+# respectively.
+  bindsym $mod+b splith
+  bindsym $mod+v splitv
+
+# Switch the current container between different layout styles
+#  bindsym $mod+s layout stacking
+#  bindsym $mod+w layout tabbed
+#  bindsym $mod+e layout toggle split
+
+# Make the current focus fullscreen
+  bindsym $mod+f fullscreen
+
+# Toggle the current focus between tiling and floating mode
+#  bindsym $mod+Shift+space floating toggle
+
+# Swap focus between the tiling area and the floating area
+#  bindsym $mod+space focus mode_toggle
+
+# Move focus to the parent container
+#  bindsym $mod+a focus parent
+
+# Resize by direct manipulation
+  bindsym $mod+Alt+Left  resize shrink width 10px
+  bindsym $mod+Alt+Right resize grow width 10px
+  bindsym $mod+Alt+Down  resize shrink height 10px
+  bindsym $mod+Alt+Up    resize grow height 10px
+
+# Move to next or previous workspaces
+  bindsym Ctrl+Alt+Up workspace prev_on_output
+  bindsym Ctrl+Alt+Down workspace next_on_output
+
+# Disable Alt-Tab to get my muscle memory in check
+  bindsym Alt+Tab exec :
+
+# Lock Screen
+  bindsym $mod+l exec $lock
+
+# Brightness keys
+  bindsym XF86MonBrightnessUp exec brightnessctl s 5%+
+  bindsym XF86MonBrightnessDown exec brightnessctl --min-value=17 s 5%-
+
+# Audio Keys
+  set $sink $(pacmd list-sinks 2>&1 | grep "* index" | head -n 1 | cut -d " " -f 5)
+  bindsym XF86AudioLowerVolume exec pactl -- set-sink-mute $sink 0 && pactl -- set-sink-volume $sink -10%
+  bindsym XF86AudioRaiseVolume exec pactl -- set-sink-mute $sink 0 && pactl -- set-sink-volume $sink +10%
+  bindsym XF86AudioMute exec pactl -- set-sink-mute $sink toggle
+
+  set $source $(pacmd list-sources 2>&1 | grep "* index" | head -n 1 | cut -d " " -f 5)
+  bindsym XF86AudioMicMute exec pactl -- set-source-mute $source toggle
+
+# Outlook mail refresh
+  #bindsym XF86Tools exec wtype -M shift -k F9
+
+  bindsym XF86Explorer inhibit_fullscreen toggle
+
+# Make it look a little better
+  font pango:"Monospace Regular" 16
+  default_border pixel 3
+  hide_edge_borders smart
+
+  client.focused          #bb0000 #bb0000 #ffffff #bb0000 #bb0000
+  client.focused_inactive #000000 #5f676a #ffffff #484e50 #222222
+  client.unfocused        #000000 #222222 #888888 #292d2e #222222
+  client.urgent           #2f343a #900000 #ffffff #900000 #900000
+  client.placeholder      #000000 #0c0c0c #ffffff #000000 #222222
+  client.background       #ffffff
+
+  # Prepare the session
+	exec ~/.config/sway/envsetup light
+	bindsym XF86Tools exec ~/.config/sway/envsetup toggle
+
+  bar {
+    swaybar_command waybar
+  }
+
+  exec {
+    #GDK_BACKEND=x11 nm-applet --indicator
+  }
