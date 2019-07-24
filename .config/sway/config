@@ -31,7 +31,7 @@
 
   input * xkb_layout "pt"
 
-  seat * hide_cursor 3000
+  seat * hide_cursor 10000
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
@@ -97,7 +97,7 @@
   bindsym $mod+f fullscreen
 
 # Toggle the current focus between tiling and floating mode
-#  bindsym $mod+Shift+space floating toggle
+  bindsym $mod+Shift+space floating toggle
 
 # Swap focus between the tiling area and the floating area
 #  bindsym $mod+space focus mode_toggle
@@ -116,7 +116,7 @@
   bindsym Ctrl+Alt+Down workspace next_on_output
 
 # Disable Alt-Tab to get my muscle memory in check
-  bindsym Alt+Tab exec :
+#  bindsym Alt+Tab exec :
 
 # Lock Screen
   bindsym $mod+l exec $lock
@@ -138,6 +138,16 @@
   #bindsym XF86Tools exec wtype -M shift -k F9
 
   bindsym XF86Explorer inhibit_fullscreen toggle
+
+# Get a nicely located and sized wifi chooser
+  bindsym $mod+w exec gnome-terminal --title="nmtui" -e nmtui-connect
+  for_window [title="nmtui"] floating enable
+  for_window [title="nmtui"] move position 1600 10
+  for_window [title="nmtui"] resize set width 800
+
+# Set fullscreen inhibition defaults
+  for_window [title=".*Private Browsing.*"] inhibit_fullscreen enable
+  for_window [app_id="virt-manager"] inhibit_fullscreen enable
 
 # Make it look a little better
   font pango:"Monospace Regular" 16
