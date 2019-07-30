@@ -172,6 +172,17 @@
     bindsym XF86Tools exec ~/.config/sway/envsetup toggle
 
   bar {
+    position top
+    height 40
+    output eDP-1
+    font pango:"Monospace Regular" 16
+    colors {
+        focused_workspace #bb0000 #bb0000 #ffffff
+        active_workspace #bb0000 #440000 #ffffff
+    }
+    status_command i3status
+
+    # To use the sway bar comment out this line
     swaybar_command waybar
   }
 
