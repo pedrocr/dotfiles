@@ -168,8 +168,8 @@
   client.background       #ffffff
 
   # Prepare the session
-	exec ~/.config/sway/envsetup light
-	bindsym XF86Tools exec ~/.config/sway/envsetup toggle
+    exec ~/.config/sway/envsetup light
+    bindsym XF86Tools exec ~/.config/sway/envsetup toggle
 
   bar {
     swaybar_command waybar
