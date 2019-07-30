@@ -27,6 +27,11 @@ window#waybar.hidden {
     font-weight: bold;
 }
 
+#workspaces button:hover {
+  box-shadow: inherit;
+  text-shadow: inherit;
+}
+
 #workspaces button.focused {
     background: #bb0000;
     color: white;
