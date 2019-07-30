@@ -142,11 +142,14 @@
 # Get a nicely located and sized wifi chooser
   bindsym $mod+w exec gnome-terminal --title="nmtui" -e nmtui-connect
   for_window [title="nmtui"] floating enable
-  for_window [title="nmtui"] move position 1600 10
+  for_window [title="nmtui"] move absolute position 1600 41
   for_window [title="nmtui"] resize set width 800
 
-# Open audio adjustments
+# Open audio adjustments with a nicely located and sized window
   bindsym $mod+s exec pavucontrol
+  for_window [app_id="pavucontrol"] floating enable
+  for_window [app_id="pavucontrol"] move absolute position 1200 41
+  for_window [app_id="pavucontrol"] resize set width 1200 height 1000
 
 # Set fullscreen inhibition defaults
   for_window [title=".*Private Browsing.*"] inhibit_fullscreen enable
