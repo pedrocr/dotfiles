@@ -145,6 +145,9 @@
   for_window [title="nmtui"] move position 1600 10
   for_window [title="nmtui"] resize set width 800
 
+# Open audio adjustments
+  bindsym $mod+s exec pavucontrol
+
 # Set fullscreen inhibition defaults
   for_window [title=".*Private Browsing.*"] inhibit_fullscreen enable
   for_window [app_id="virt-manager"] inhibit_fullscreen enable
