@@ -68,10 +68,10 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{capacity}% {icon}",
+        "format": "{capacity}% {icon} {time}",
         "format-charging": "{capacity}% <span font=\"FontAwesome 5 Free Solid\"></span>",
         "format-plugged": "{capacity}% <span font=\"FontAwesome 5 Free Solid\"></span>",
-        "format-alt": "{time} {icon}",
+        //"format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         "format-icons": ["<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>"]
@@ -83,12 +83,12 @@
     "network": {
         "tooltip": false,
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) <span font=\"FontAwesome 5 Free Solid\"></span>",
+        "format-wifi": "{ifname}: {essid} ({signalStrength}%) {ipaddr}/{cidr} <span font=\"FontAwesome 5 Free Solid\"></span>",
         "format-ethernet": "{ifname}: {ipaddr}/{cidr} <span font=\"FontAwesome 5 Free Solid\"></span>",
         "format-linked": "{ifname} (No IP) <span font=\"FontAwesome 5 Free Solid\"></span>",
-        "format-disconnected": "Disconnected <span font=\"FontAwesome 5 Free Solid\">⚠</span>",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
-        "on-click-right": "gnome-terminal --title=\"nmtui\" -e nmtui-connect"
+        "format-disconnected": "Disconnected <span font=\"FontAwesome 5 Free Solid\">⚠</span>"
+        //"format-alt": "{ifname}: {ipaddr}/{cidr}",
+        //"on-click-right": "gnome-terminal --title=\"nmtui\" -e nmtui-connect"
     },
     "pulseaudio": {
         "tooltip": false,
@@ -98,6 +98,7 @@
         "format-muted": "<span font=\"FontAwesome 5 Free Solid\"></span> {format_source}",
         "format-source": "{volume}% ",
         "format-source-muted": "<span font=\"FontAwesome 5 Free Solid\"></span>",
+        //"on-click": "pavucontrol",
         "format-icons": {
             "headphones": "<span font=\"FontAwesome 5 Free Solid\"></span>",
             "handsfree": "<span font=\"FontAwesome 5 Free Solid\"></span>",
@@ -106,8 +107,7 @@
             "portable": "<span font=\"FontAwesome 5 Free Solid\"></span>",
             "car": "<span font=\"FontAwesome 5 Free Solid\"></span>",
             "default": ["<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>"]
-        },
-        "on-click": "pavucontrol"
+        }
     },
     "custom/media": {
         "tooltip": false,
