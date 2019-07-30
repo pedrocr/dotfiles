@@ -83,10 +83,10 @@
     "network": {
         "tooltip": false,
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{ifname}: {essid} ({signalStrength}%) {ipaddr}/{cidr} <span font=\"FontAwesome 5 Free Solid\"></span>",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr} <span font=\"FontAwesome 5 Free Solid\"></span>",
-        "format-linked": "{ifname} (No IP) <span font=\"FontAwesome 5 Free Solid\"></span>",
-        "format-disconnected": "Disconnected <span font=\"FontAwesome 5 Free Solid\">⚠</span>"
+        "format-wifi": "<span font=\"FontAwesome 5 Free Solid\"></span> {ifname}: {essid} ({signalStrength}%) {ipaddr}/{cidr}",
+        "format-ethernet": "<span font=\"FontAwesome 5 Free Solid\"></span> {ifname}: {ipaddr}/{cidr}",
+        "format-linked": "<span font=\"FontAwesome 5 Free Solid\"></span> {ifname} (No IP)",
+        "format-disconnected": "<span font=\"FontAwesome 5 Free Solid\">⚠</span> Disconnected"
         //"format-alt": "{ifname}: {ipaddr}/{cidr}",
         //"on-click-right": "gnome-terminal --title=\"nmtui\" -e nmtui-connect"
     },
