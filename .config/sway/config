@@ -126,13 +126,10 @@
   bindsym XF86MonBrightnessDown exec brightnessctl --min-value=17 s 5%-
 
 # Audio Keys
-  set $sink $(pacmd list-sinks 2>&1 | grep "* index" | head -n 1 | cut -d " " -f 5)
-  bindsym XF86AudioLowerVolume exec pactl -- set-sink-mute $sink 0 && pactl -- set-sink-volume $sink -10%
-  bindsym XF86AudioRaiseVolume exec pactl -- set-sink-mute $sink 0 && pactl -- set-sink-volume $sink +10%
-  bindsym XF86AudioMute exec pactl -- set-sink-mute $sink toggle
-
-  set $source $(pacmd list-sources 2>&1 | grep "* index" | head -n 1 | cut -d " " -f 5)
-  bindsym XF86AudioMicMute exec pactl -- set-source-mute $source toggle
+  bindsym XF86AudioLowerVolume exec pactl -- set-sink-mute @DEFAULT_SINK@ 0 && pactl -- set-sink-volume @DEFAULT_SINK@ -10%
+  bindsym XF86AudioRaiseVolume exec pactl -- set-sink-mute @DEFAULT_SINK@ 0 && pactl -- set-sink-volume @DEFAULT_SINK@ +10%
+  bindsym XF86AudioMute exec pactl -- set-sink-mute @DEFAULT_SINK@ toggle
+  bindsym XF86AudioMicMute exec pactl -- set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Outlook mail refresh
   #bindsym XF86Tools exec wtype -M shift -k F9
