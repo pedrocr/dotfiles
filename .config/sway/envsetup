@@ -9,6 +9,7 @@ def dconf_gnome_interface(name, val)
 end
 
 dconf_gnome_interface "text-scaling-factor", "1.3"
+dconf_gnome_interface "cursor-size", "32"
 
 colors = case ARGV[0]
 when "dark"
