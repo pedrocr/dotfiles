@@ -166,7 +166,7 @@ output eDP-1 pos 0 0
   client.placeholder      #000000 #0c0c0c #ffffff #000000 #222222
   client.background       #ffffff
 
-  # Prepare the session
+# Prepare the session
   exec ~/.config/sway/envsetup light
   bindsym XF86Tools exec ~/.config/sway/envsetup toggle
 
