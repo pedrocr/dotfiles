@@ -11,7 +11,8 @@
 ### Output configuration
 # output * bg /usr/local/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # output * bg #000000 solid_color
-# output eDP-1 scale 1.3
+#output eDP-1 scale 1.3
+output eDP-1 pos 0 0
 
 ### Idle configuration
 
