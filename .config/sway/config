@@ -5,7 +5,8 @@
   set $lock swaylock -f -c 112233 -i ~/LockImage.png
 
   #set $menu dmenu_path | dmenu -fn "Monospace Regular-21\" -nb "#000" | xargs swaymsg exec --
-  set $menu dmenu_path | rofi -width 100 -location 1 -lines 10 -bw 2 -yoffset -2 -show-icons -font "Monospace Regular 20" -modi combi -show combi -combi-modi drun,run
+  #set $menu dmenu_path | rofi -width 100 -location 1 -lines 10 -bw 2 -yoffset -2 -show-icons -font "Monospace Regular 20" -modi combi -show combi -combi-modi drun,run
+  set $menu ~/bin/wlmenu
 
 ### Output configuration
 # output * bg /usr/local/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
