@@ -1,9 +1,17 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "Monospace Regular";
-    font-size: 20px; /* 13px */
+    font-family: "DejaVu Bold";
+    font-size: 12pt;
     min-height: 0;
+}
+
+#cpu.warning, #battery.warning, #memory.warning, #temperature.warning  {
+    color: yellow;
+}
+
+#cpu.critical, #battery.critical, #memory.critical, #temperature.critical  {
+    color: red;
 }
 
 window#waybar {
@@ -20,7 +28,7 @@ window#waybar.hidden {
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #workspaces button {
-    padding: 0 5px;
+    padding: 0;
     background: transparent;
     color: #ffffff;
     border-bottom: 3px solid transparent;
@@ -30,6 +38,12 @@ window#waybar.hidden {
 #workspaces button:hover {
   box-shadow: inherit;
   text-shadow: inherit;
+}
+
+#workspaces button.visible {
+    background: #660000;
+    color: white;
+    border-top: 3px solid #660000;
 }
 
 #workspaces button.focused {
@@ -52,17 +66,17 @@ window#waybar.hidden {
     padding-left: 1rem;
 }
 
-#battery, #cpu, #memory, #temperature, #backlight, #network, #pulseaudio, #custom-media, #tray, #mode, #idle_inhibitor {
+#battery, #cpu, #memory, #temperature, #backlight, #network, #pulseaudio, #custom-media, #tray, #mode, #idle_inhibitor, #custom-network {
     padding: 0 10px;
     margin: 0;
-    color: #ccc;
-    border-left: 2px solid #ccc;
+    color: #999;
+    /* border-left: 2px solid #555; */
     font-weight: bold;
 }
 
 #tray {
   font-weight: normal;
-  padding-left: 20px;
+  padding-left: 10px;
 }
 
 #memory, #temperature {
@@ -71,8 +85,8 @@ window#waybar.hidden {
 }
 
 #temperature {
-    margin-right: 30px;
-    border-right: 2px solid #ccc;
+    margin-right: 10px;
+    /* border-right: 2px solid #555; */
 }
 
 #clock {
@@ -102,3 +116,9 @@ window#waybar.hidden {
 label:focus {
     background-color: #000000;
 }
+
+/*
+button#sway-workspace-1 {
+    background-color: blue;
+}
+*/

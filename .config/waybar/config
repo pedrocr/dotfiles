@@ -1,5 +1,5 @@
 {
-    "layer": "bottom",
+    "layer": "top",
 	"output": "eDP-1", // Only show on internal screen
     "position": "top", // Waybar position (top|bottom|left|right)
     "height": 40, // Waybar height (to be removed for auto height)
@@ -7,10 +7,11 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/window"],
     "modules-center": [],
-    "modules-right": ["cpu", "memory", "temperature", "pulseaudio", "backlight", "network", "battery", "tray", "clock"],
+    "modules-right": ["custom/network", "cpu", "memory", "temperature", "pulseaudio", "battery", "tray", "clock"],
     // Modules configuration
     "sway/workspaces": {
          "disable-scroll": true,
+         "disable-click": true,
          "all-outputs": true,
          "format": " {icon}{name} ",
          "format-icons": {
@@ -23,7 +24,7 @@
         "format": "<span style=\"italic\">{}</span>"
     },
     "sway/window": {
-        "tooltip": false,
+        "tooltip": true,
         "all-outputs": true
     },
     "tray": {
@@ -33,18 +34,27 @@
     },
     "clock": {
         "tooltip": false,
-        "format-alt": "{:%Y-%m-%d %H:%M:%S}",
+        //"format-alt": "{:%Y-%m-%d %H:%M:%S}",
         "interval": 1,
-        "format": "{:%Y-%m-%d %H:%M}"
+        //"on-click": "~/bin/wldash",
+        "format": "{:%a %Y-%m-%d %H:%M:%S}"
     },
     "cpu": {
         "tooltip": false,
         "format": "{usage}% <span font=\"FontAwesome 5 Free Solid\"></span>",
-        "tooltip": false
+        "tooltip": false,
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
     },
     "memory": {
         "tooltip": false,
-        "format": "{}% <span font=\"FontAwesome 5 Free Solid\"></span>"
+        "format": "{}% <span font=\"FontAwesome 5 Free Solid\"></span>",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
     },
     "temperature": {
         "tooltip": false,
@@ -53,7 +63,8 @@
         "critical-threshold": 80,
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
-        "format-icons": ["<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>"]
+        "format-icons": ["<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>"],
+        "critical-threshold": 70
     },
     "backlight": {
         "tooltip": false,
@@ -65,7 +76,7 @@
         "tooltip": false,
         "states": {
             // "good": 95,
-            "warning": 30,
+            "warning": 25,
             "critical": 15
         },
         "format": "{capacity}% {icon} {time}",
@@ -83,9 +94,9 @@
     "network": {
         "tooltip": false,
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "<span font=\"FontAwesome 5 Free Solid\"></span> {ifname}: {essid} ({signalStrength}%) {ipaddr}/{cidr}",
-        "format-ethernet": "<span font=\"FontAwesome 5 Free Solid\"></span> {ifname}: {ipaddr}/{cidr}",
-        "format-linked": "<span font=\"FontAwesome 5 Free Solid\"></span> {ifname} (No IP)",
+        "format-wifi": "<span font=\"FontAwesome 5 Free Solid\"></span> {essid} ({signalStrength}%) {ipaddr}/{cidr}",
+        "format-ethernet": "<span font=\"FontAwesome 5 Free Solid\"></span> {ipaddr}/{cidr}",
+        "format-linked": "<span font=\"FontAwesome 5 Free Solid\"></span> (No IP)",
         "format-disconnected": "<span font=\"FontAwesome 5 Free Solid\">⚠</span> Disconnected"
         //"format-alt": "{ifname}: {ipaddr}/{cidr}",
         //"on-click-right": "gnome-terminal --title=\"nmtui\" -e nmtui-connect"
@@ -109,16 +120,9 @@
             "default": ["<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>", "<span font=\"FontAwesome 5 Free Solid\"></span>"]
         }
     },
-    "custom/media": {
+    "custom/network": {
         "tooltip": false,
-        "format": "{icon} {}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "<span font=\"FontAwesome 5 Free Solid\"></span>",
-            "default": "<span font=\"FontAwesome 5 Free Solid\">🎜</span>"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        "format": "{}",
+        "exec": "$HOME/.config/i3status/wrapper"
     }
 }
