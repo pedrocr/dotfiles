@@ -12,7 +12,15 @@
 # output * bg /usr/local/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # output * bg #000000 solid_color
 #output eDP-1 scale 1.3
-output eDP-1 pos 0 0
+output eDP-1 pos 0 0 scale 1.0
+
+# Run it at 1080p@60hz to avoid dropped frames in mpv
+output "Seiko Epson Corporation EPSON PJ 0x00000101" mode 1920x1080@60hz
+
+# Run at 1080p to save CPU when Firefox is displaying video
+#output "Goldstar Company Ltd LG HDR 4K 0x0000333A" mode 1920x1080@60hz
+
+#output "Goldstar Company Ltd LG HDR 4K *" scale 2
 
 ### Idle configuration
 
