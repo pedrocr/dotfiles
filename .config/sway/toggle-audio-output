@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+active = IO.popen("pacmd list-cards | grep 'active profile'").read().split[2].strip()[1..-2]
+available = IO.popen("pactl list cards | grep -P '\toutput:' | grep 'available: yes' | grep '+input' | cut -f 3 | cut -d ' ' -f 1").readlines.map{|a| a.strip[0..-2]}
+
+# Always move out of surround modes
+available = available.filter{|a| a == active or not a.include? "surround"}
+
+new = available.index(active)+1
+new = 0 if !new || new == available.size
+
+puts "Setting card profile to #{available[new]}"
+system "pactl set-card-profile 0 #{available[new]}"
