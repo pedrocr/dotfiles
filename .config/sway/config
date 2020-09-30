@@ -33,21 +33,26 @@ output "Seiko Epson Corporation EPSON PJ 0x00000101" mode 1920x1080@60hz
 
   input type:pointer {
     natural_scroll enabled
+    scroll_factor 1.5
   }
 
   input type:touchpad {
+    natural_scroll enabled
     events disabled
   }
 
-  input * xkb_layout "pt"
+  input * xkb_layout pt-custom
 
   seat * hide_cursor 10000
+  seat * shortcuts_inhibitor disable
+  mouse_warping container
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
 # Reload the configuration file
-  bindsym $mod+Shift+c reload
+  bindsym $mod+Shift+c nop # suppress the keystroke (or it will type a capital C before reloading sway)
+  bindsym --release $mod+Shift+c reload
 
 # Exit sway (logs you out of your Wayland session)
   bindsym $mod+Shift+e exec swaynag -t warning -m 'Do you really want to exit?' -b 'Yes, terminate everything' 'swaymsg exit'
@@ -73,12 +78,13 @@ output "Seiko Epson Corporation EPSON PJ 0x00000101" mode 1920x1080@60hz
   bindsym $mod+Down focus down
   bindsym $mod+Up focus up
   bindsym $mod+Right focus right
+  bindsym $mod+Prior focus parent
 
 # Move the focused window with the same, but add Shift
-  bindsym $mod+Shift+Left move left
-  bindsym $mod+Shift+Down move down
-  bindsym $mod+Shift+Up move up
-  bindsym $mod+Shift+Right move right
+  bindsym $mod+Alt+Left move left
+  bindsym $mod+Alt+Down move down
+  bindsym $mod+Alt+Up move up
+  bindsym $mod+Alt+Right move right
 
 # Move focused container to workspace
   bindsym $mod+1 move container to workspace 1
@@ -90,7 +96,6 @@ output "Seiko Epson Corporation EPSON PJ 0x00000101" mode 1920x1080@60hz
   bindsym $mod+7 move container to workspace 7
   bindsym $mod+8 move container to workspace 8
   bindsym $mod+9 move container to workspace 9
-  bindsym $mod+0 move container to workspace 10
 
 # You can "split" the current object of your focus with
 # $mod+b or $mod+v, for horizontal and vertical splits
@@ -116,14 +121,18 @@ output "Seiko Epson Corporation EPSON PJ 0x00000101" mode 1920x1080@60hz
 #  bindsym $mod+a focus parent
 
 # Resize by direct manipulation
-  bindsym $mod+Alt+Left  resize shrink width 10px
-  bindsym $mod+Alt+Right resize grow width 10px
-  bindsym $mod+Alt+Down  resize shrink height 10px
-  bindsym $mod+Alt+Up    resize grow height 10px
+  bindsym $mod+Shift+Left  resize shrink width 10px
+  bindsym $mod+Shift+Right resize grow width 10px
+  bindsym $mod+Shift+Down  resize shrink height 10px
+  bindsym $mod+Shift+Up    resize grow height 10px
 
 # Move to next or previous workspaces
   bindsym Ctrl+Alt+Up workspace prev_on_output
   bindsym Ctrl+Alt+Down workspace next_on_output
+
+# Move a workspace to a different output
+  bindsym Ctrl+Alt+Shift+Right move workspace to output right
+  bindsym Ctrl+Alt+Shift+Left move workspace to output left
 
 # Disable Alt-Tab to get my muscle memory in check
 #  bindsym Alt+Tab exec :
@@ -132,19 +141,36 @@ output "Seiko Epson Corporation EPSON PJ 0x00000101" mode 1920x1080@60hz
   bindsym $mod+l exec $lock
 
 # Brightness keys
-  bindsym XF86MonBrightnessUp exec brightnessctl s 5%+
-  bindsym XF86MonBrightnessDown exec brightnessctl --min-value=17 s 5%-
+  bindsym XF86MonBrightnessUp exec ~/bin/platformctl backlight -- +0.05
+  bindsym XF86MonBrightnessDown exec ~/bin/platformctl backlight -- -0.05
 
 # Audio Keys
+
+# platformctl sometimes fails and doesn't do source volume yet
+#  bindsym XF86AudioRaiseVolume exec ~/bin/platformctl audio mute off && ~/bin/platformctl audio volume -- +0.10 1.5
+#  bindsym XF86AudioLowerVolume exec ~/bin/platformctl audio mute off && ~/bin/platformctl audio volume -- -0.10 1.5
+#  bindsym XF86AudioMute exec ~/bin/platformctl audio mute toggle
+
   bindsym XF86AudioLowerVolume exec pactl -- set-sink-mute @DEFAULT_SINK@ 0 && pactl -- set-sink-volume @DEFAULT_SINK@ -10%
   bindsym XF86AudioRaiseVolume exec pactl -- set-sink-mute @DEFAULT_SINK@ 0 && pactl -- set-sink-volume @DEFAULT_SINK@ +10%
   bindsym XF86AudioMute exec pactl -- set-sink-mute @DEFAULT_SINK@ toggle
   bindsym XF86AudioMicMute exec pactl -- set-source-mute @DEFAULT_SOURCE@ toggle
+  bindsym XF86Search exec ~/.config/sway/toggle-audio-output
 
 # Outlook mail refresh
   #bindsym XF86Tools exec wtype -M shift -k F9
 
   bindsym XF86Explorer inhibit_fullscreen toggle
+
+# Make it easier to use external screns at 1080p for speed
+  bindsym XF86Display output * mode 1920x1080@60hz
+
+# Screenshots
+  bindsym $mod+Print exec grim - | wl-copy
+  bindsym $mod+Shift+Print exec grim -g "$(slurp)" - | wl-copy
+
+# Clear clipboard
+  bindsym $mod+Tab exec wl-copy -c && wl-copy -cp
 
 # Get a nicely located and sized wifi chooser
   bindsym $mod+w exec gnome-terminal --title="nmtui" -e nmtui-connect
@@ -162,8 +188,12 @@ output "Seiko Epson Corporation EPSON PJ 0x00000101" mode 1920x1080@60hz
   for_window [title=".*Private Browsing.*"] inhibit_fullscreen enable
   for_window [app_id="virt-manager"] inhibit_fullscreen enable
 
+# Make Microsoft Teams open in WS 2
+  no_focus   [title=".*Microsoft Teams.*"]
+#  for_window [title=".*Microsoft Teams.*"] move workspace 2
+
 # Make it look a little better
-  font pango:"Monospace Regular" 16
+  font pango:DejaVu Bold 16
   default_border pixel 3
   hide_edge_borders smart
 
@@ -175,24 +205,29 @@ output "Seiko Epson Corporation EPSON PJ 0x00000101" mode 1920x1080@60hz
   client.background       #ffffff
 
 # Prepare the session
-  exec ~/.config/sway/envsetup light
+  exec_always ~/.config/sway/envsetup dark
   bindsym XF86Tools exec ~/.config/sway/envsetup toggle
 
   bar {
     position top
     height 40
     output eDP-1
-    font pango:"Monospace Regular" 16
+    font pango:DejaVu Bold 16
+    separator_symbol ""
+	#workspace_buttons_all_outputs yes
+	#window_title yes
     colors {
-        focused_workspace #bb0000 #bb0000 #ffffff
-        active_workspace #bb0000 #440000 #ffffff
+        focused_workspace  #bb0000 #bb0000 #ffffff
+        active_workspace   #660000 #660000 #ffffff
+        inactive_workspace #000000 #000000 #cccccc
     }
-    status_command i3status
+    status_command ~/.config/i3status/wrapper
 
     # To use the sway bar comment out this line
     swaybar_command waybar
   }
 
-  exec {
-    #GDK_BACKEND=x11 nm-applet --indicator
+  exec_always {
+    nm-applet
+    #if ! pgrep --uid $(whoami) pasystray; then pasystray; fi
   }
