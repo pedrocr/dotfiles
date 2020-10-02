@@ -24,7 +24,7 @@
         "format": "<span style=\"italic\">{}</span>"
     },
     "sway/window": {
-        "tooltip": true,
+        "tooltip": false,
         "all-outputs": true
     },
     "tray": {
