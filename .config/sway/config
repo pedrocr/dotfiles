@@ -141,8 +141,10 @@ output "Seiko Epson Corporation EPSON PJ 0x00000101" mode 1920x1080@60hz
   bindsym $mod+l exec $lock
 
 # Brightness keys
-  bindsym XF86MonBrightnessUp exec ~/.config/sway/brightness up
-  bindsym XF86MonBrightnessDown exec ~/.config/sway/brightness down
+  bindsym XF86MonBrightnessUp exec ~/bin/platformctl backlight -- +0.05
+  bindsym XF86MonBrightnessDown exec ~/bin/platformctl backlight -- -0.05
+  bindsym $mod+XF86MonBrightnessUp exec ~/.config/sway/external_brightness up
+  bindsym $mod+XF86MonBrightnessDown exec ~/.config/sway/external_brightness down
 
 # Audio Keys
 

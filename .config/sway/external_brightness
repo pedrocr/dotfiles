@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+I2C=5
+STEP=10
+
+current = IO.popen("ddcutil -t -b #{I2C} getvcp 10").readlines[-1].split[3].to_i
+
+step = case ARGV[0]
+when "up"
+  STEP
+when "down"
+  -STEP
+else
+  $stderr.puts "USAGE: external_brightness <up|down>"
+  exit 2
+end
+
+newval = [[current + step,0].max,100].min
+system "ddcutil -b #{I2C} setvcp 10 #{newval}"
+
+#newcurrent = IO.popen("ddcutil -t -b 5 getvcp 10 2>/dev/null").read.split[3].to_i
+#p [current, step, newval, newcurrent]
