@@ -78,7 +78,7 @@ output "Seiko Epson Corporation EPSON PJ 0x00000101" mode 1920x1080@60hz
   bindsym $mod+Down focus down
   bindsym $mod+Up focus up
   bindsym $mod+Right focus right
-  bindsym $mod+Prior focus parent
+#  bindsym $mod+Prior focus parent
 
 # Move the focused window with the same, but add Shift
   bindsym $mod+Alt+Left move left
