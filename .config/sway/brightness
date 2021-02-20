@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+MIN=0.1
+MAX=0.7
+STEP=0.05
+
+case ARGV[0]
+when "up"
+  system "~/bin/platformctl backlight -- +#{STEP}"
+when "down"
+  system "~/bin/platformctl backlight -- -#{STEP}"
+else
+  $stderr.puts "USAGE: brightness <up|down>"
+  exit 2
+end
+
+brightness = IO.popen("~/bin/platformctl backlight").read.to_f
+external = ([[(brightness - MIN) / (MAX - MIN), 1.0].min, 0.0].max * 100).to_i
+system "ddcutil -b 5 setvcp 10 #{external}"
